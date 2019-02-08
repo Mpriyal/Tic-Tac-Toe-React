@@ -43,10 +43,12 @@ class Board extends React.Component {
     checkStatus(winner,status) {
         if(winner) {
             if(this.state.xIsNext) {
-                status = 'Winner: Player 1';
+                status = 'Wohoo! ' +
+                    'Player 1 Wins!';
             }
             else {
-                status = 'Winner: Player 2';
+                status = 'Wohoo! ' +
+                    'Player 2 Wins!';
             }
         }
         else if(this.state.xIsNext){
