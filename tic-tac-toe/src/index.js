@@ -23,6 +23,9 @@ class Board extends React.Component {
 
     handleClick(i) {
         const newSquares = this.state.squares.slice();
+        if (calculateWinner(newSquares) || newSquares[i]) {
+            return;
+        }
         newSquares[i] = this.state.xIsNext? 'X' :'O';
         this.setState(
             {squares: newSquares,
@@ -37,21 +40,30 @@ class Board extends React.Component {
         />;
     }
 
-    checkStatus(status) {
-        if(this.state.xIsNext){
-            status = 'Player 1';
+    checkStatus(winner,status) {
+        if(winner) {
+            if(this.state.xIsNext) {
+                status = 'Winner: Player 1';
+            }
+            else {
+                status = 'Winner: Player 2';
+            }
+        }
+        else if(this.state.xIsNext){
+            status = 'Next Turn: Player 1';
         }
         else {
-            status = 'Player 2';
+            status = 'Next Turn: Player 2';
         }
         return status
     }
 
     render() {
-       const status = 'X';
+        const winner = calculateWinner(this.state.squares)
+        const status = null;
         return (
             <div>
-                <div className="status">Next Turn : {this.checkStatus(status)}</div>
+                <div className="status">{this.checkStatus(winner,status)}</div>
                 <div className="board-row">
                     {this.renderSquare(0)}
                     {this.renderSquare(1)}
@@ -87,8 +99,6 @@ class Game extends React.Component {
         );
     }
 }
-
-// ========================================
 
 ReactDOM.render(
     <Game />,
