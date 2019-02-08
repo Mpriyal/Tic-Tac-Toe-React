@@ -81,15 +81,19 @@ class Game extends React.Component {
     }
 
     checkStatus(winner,status) {
-        if(winner) {
+        if(winner!=null) {
+            console.log(winner);
             if(this.state.xIsNext) {
-                status = 'Wohoo! ' +
-                    'Player 1 Wins!';
-            }
-            else {
                 status = 'Wohoo! ' +
                     'Player 2 Wins!';
             }
+            else {
+                status = 'Wohoo! ' +
+                    'Player 1 Wins!';
+            }
+        }
+        else if(this.state.stepNumber===9) {
+            status = "Game Over! Go to Game Start!";
         }
         else if(this.state.xIsNext){
             status = 'Next Turn: Player 1';
